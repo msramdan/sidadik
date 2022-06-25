@@ -154,9 +154,44 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Pindahkan Siswa</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="mod_siswa/crud_siswa.php?pg=PindahSiswa" method="POST">
+                                            <input type="hidden" name="siswa_id" id="siswa_id" value="">
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="kelas">Kelas</label>
+                                                    <select class="form-control" style="width: 100%" name="kelas" id="kelas" required>
+                                                        <option value="">Pilih kelas</option>
+                                                        <?php
+                                                        $query = mysqli_query($koneksi, "select * from kelas where status='1'");
+                                                        while ($kelas = mysqli_fetch_array($query)) {
+                                                        ?>
+                                                            <option value="<?= $kelas['nama_kelas'] ?>"><?= $kelas['nama_kelas'] ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
                             <?php
-                            $query = mysqli_query($koneksi, "select * from siswa WHERE status='1'");
+                            $query = mysqli_query($koneksi, 'SELECT * FROM siswa where status=1');
                             $no = 0;
+
                             while ($siswa = mysqli_fetch_array($query)) {
                                 $no++;
                             ?>
@@ -179,48 +214,8 @@
                                         <?php } ?>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
-                                        id="detailtransaksi"
-                                        data-target="#exampleModal"
-                                        data-siswa_id="<?= $siswa['id_siswa'] ?>"
-                                        >
-                                            <i class="fas fa-arrow-up"></i>
+                                        <button type="button" class="btn btn-success btn-sm detailtransaksi" data-toggle="modal" id="" data-target="#exampleModal" data-siswa_id="<?= $siswa['id_siswa'] ?>"><i class="fas fa-arrow-up"></i>
                                         </button>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Pindahkan Siswa</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <form action="mod_siswa/crud_siswa.php?pg=PindahSiswa" method="POST">
-                                                        <input type="hidden" name="siswa_id" id="siswa_id" value="">
-                                                        <div class="modal-body">
-                                                            <div class="form-group">
-                                                                <label for="kelas">Kelas</label>
-                                                                <select class="form-control" style="width: 100%" name="kelas" id="kelas" required>
-                                                                    <option value="">Pilih kelas</option>
-                                                                    <?php
-                                                                    $query = mysqli_query($koneksi, "select * from kelas where status='1'");
-                                                                    while ($kelas = mysqli_fetch_array($query)) {
-                                                                    ?>
-                                                                        <option value="<?= $kelas['nama_kelas'] ?>"><?= $kelas['nama_kelas'] ?></option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary">Save</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-
 
                                         <a data-toggle="tooltip" data-placement="top" title="" data-original-title="detail siswa" href="?pg=ubahsiswa&id=<?= enkripsi($siswa['id_siswa']) ?>" class="btn btn-sm btn-info"><i class="fas fa-eye    "></i></a>
                                         <!-- Button trigger modal -->
@@ -442,8 +437,8 @@
 </script>
 
 <script type="text/javascript">
-        $(document).on('click', '#detailtransaksi', function() {
-            var siswa_id = $(this).data('siswa_id');
-            $('#exampleModal #siswa_id').val(siswa_id);
-        })
-    </script>
+    $(document).on('click', '.detailtransaksi', function() {
+        var siswa_id = $(this).data('siswa_id');
+        $('#exampleModal #siswa_id').val(siswa_id);
+    })
+</script>
