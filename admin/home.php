@@ -14,7 +14,7 @@
     <div class="col-lg-4 ">
         <div class="small-box bg-yellow">
             <div class="inner">
-                <h3><?= mysqli_num_rows(mysqli_query($koneksi, "select * from siswa where jk = 'L'")) ?></h3>
+                <h3><?= mysqli_num_rows(mysqli_query($koneksi, "select * from siswa where jk = 'L' and status=1")) ?></h3>
                 <p>Laki-laki</p>
             </div>
             <div class="icon">
@@ -26,7 +26,7 @@
     <div class="col-lg-4">
         <div class="small-box bg-red">
             <div class="inner">
-                <h3><?= mysqli_num_rows(mysqli_query($koneksi, "select * from siswa where jk = 'P'")) ?></h3>
+                <h3><?= mysqli_num_rows(mysqli_query($koneksi, "select * from siswa where jk = 'P' and status=1")) ?></h3>
                 <p>Perempuan</p>
             </div>
             <div class="icon">
